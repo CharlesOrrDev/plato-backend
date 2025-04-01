@@ -1,0 +1,6 @@
+@plato_backend_HostAddress = http://localhost:5192
+
+GET {{plato_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
