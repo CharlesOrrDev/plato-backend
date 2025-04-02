@@ -84,10 +84,10 @@ namespace plato_backend.Services
 
             var tokenOptions = new JwtSecurityToken
             (
-                // issuer: "https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net",
-                issuer: "https://localhost:5000",
-                // audience: "https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net",
-                audience: "https://localhost:5000",
+                issuer: "https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net",
+                // issuer: "https://localhost:5000",
+                audience: "https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net",
+                // audience: "https://localhost:5000",
                 claims: claims,
                 signingCredentials: signingCredentials
             );
