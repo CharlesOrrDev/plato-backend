@@ -43,8 +43,8 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
 
-        ValidIssuer = "https://localhost:5000",
-        ValidAudience = "https://localhost:5000",
+        ValidIssuers = ["https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net", "https://localhost:5000"],
+        ValidAudiences = ["https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net", "https://localhost:5000"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!))
     };
 });

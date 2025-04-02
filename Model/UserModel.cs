@@ -17,5 +17,7 @@ namespace plato_backend.Model
         public string? PhoneNumber { get; set; }
 
         public string? DateOfBirth { get; set; }
+
+        public string? ProfilePicture { get; set; }
     }
 }

@@ -84,7 +84,9 @@ namespace plato_backend.Services
 
             var tokenOptions = new JwtSecurityToken
             (
+                // issuer: "https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net",
                 issuer: "https://localhost:5000",
+                // audience: "https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net",
                 audience: "https://localhost:5000",
                 claims: claims,
                 signingCredentials: signingCredentials
@@ -123,6 +125,7 @@ namespace plato_backend.Services
             user.Name = currentUser.Name;
             user.PhoneNumber = currentUser.PhoneNumber;
             user.DateOfBirth = currentUser.DateOfBirth;
+            user.ProfilePicture = currentUser.ProfilePicture;
 
             return user;
         }
@@ -139,6 +142,7 @@ namespace plato_backend.Services
             user.Name = currentUser.Name;
             user.PhoneNumber = currentUser.PhoneNumber;
             user.DateOfBirth = currentUser.DateOfBirth;
+            user.ProfilePicture = currentUser.ProfilePicture;
 
             return user;
         }
@@ -155,6 +159,7 @@ namespace plato_backend.Services
             user.Name = currentUser.Name;
             user.PhoneNumber = currentUser.PhoneNumber;
             user.DateOfBirth = currentUser.DateOfBirth;
+            user.ProfilePicture = currentUser.ProfilePicture;
 
             return user;
         }
