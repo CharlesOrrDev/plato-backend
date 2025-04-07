@@ -87,6 +87,9 @@ namespace plato_backend.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProfilePicture")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Salt")
                         .HasColumnType("nvarchar(max)");
 

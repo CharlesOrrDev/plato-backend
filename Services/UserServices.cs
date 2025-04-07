@@ -36,6 +36,7 @@ namespace plato_backend.Services
             userToAdd.Name = newUser.Name;
             userToAdd.PhoneNumber = newUser.PhoneNumber;
             userToAdd.DateOfBirth = newUser.DateOfBirth;
+            userToAdd.ProfilePicture = "";
 
             await _dataContext.User.AddAsync(userToAdd);
             return await _dataContext.SaveChangesAsync() != 0;
@@ -43,7 +44,13 @@ namespace plato_backend.Services
 
         private async Task<bool> DoesUserExist(string email, string username)
         {
-            return await _dataContext.User.SingleOrDefaultAsync(user => user.Username == username || user.Email == email) != null;
+            bool usernameCheck = await _dataContext.User.SingleOrDefaultAsync(user => user.Username == username) != null;
+
+            bool emailCheck = await _dataContext.User.SingleOrDefaultAsync(user => user.Email == email) != null;
+
+            if (usernameCheck && emailCheck) return true;
+
+            return false;
         }
 
         private static PasswordDTO HashPassword(string password)
