@@ -36,7 +36,7 @@ namespace plato_backend.Services
             userToAdd.Name = newUser.Name;
             userToAdd.PhoneNumber = newUser.PhoneNumber;
             userToAdd.DateOfBirth = newUser.DateOfBirth;
-            userToAdd.ProfilePicture = null;
+            userToAdd.ProfilePicture = "";
 
             await _dataContext.User.AddAsync(userToAdd);
             return await _dataContext.SaveChangesAsync() != 0;
