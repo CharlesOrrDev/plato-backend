@@ -23,7 +23,7 @@ namespace plato_backend.Services
 
         public async Task<bool> CreateAccount(UserDTO newUser)
         {
-            if (await DoesUserExist(newUser.Username!, newUser.Email!)) return false;
+            if (await DoesUserExistUsername(newUser.Username!) || (await DoesUserExistEmail(newUser.Email!))) return false;
 
             UserModel userToAdd = new();
 
@@ -42,15 +42,14 @@ namespace plato_backend.Services
             return await _dataContext.SaveChangesAsync() != 0;
         }
 
-        private async Task<bool> DoesUserExist(string email, string username)
+        private async Task<bool> DoesUserExistUsername(string username)
         {
-            bool usernameCheck = await _dataContext.User.SingleOrDefaultAsync(user => user.Username == username) != null;
+            return await _dataContext.User.SingleOrDefaultAsync(user => user.Username == username) != null;
+        }
 
-            bool emailCheck = await _dataContext.User.SingleOrDefaultAsync(user => user.Email == email) != null;
-
-            if (usernameCheck && emailCheck) return true;
-
-            return false;
+        private async Task<bool> DoesUserExistEmail(string email)
+        {
+            return await _dataContext.User.SingleOrDefaultAsync(user => user.Email == email) != null;
         }
 
         private static PasswordDTO HashPassword(string password)
@@ -91,10 +90,10 @@ namespace plato_backend.Services
 
             var tokenOptions = new JwtSecurityToken
             (
-                issuer: "https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net",
-                // issuer: "https://localhost:5000",
-                audience: "https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net",
-                // audience: "https://localhost:5000",
+                // issuer: "https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net",
+                issuer: "https://localhost:5000",
+                // audience: "https://platobackend-a7hagaahdvdfesgm.westus-01.azurewebsites.net",
+                audience: "https://localhost:5000",
                 claims: claims,
                 signingCredentials: signingCredentials
             );
