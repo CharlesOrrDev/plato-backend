@@ -24,6 +24,7 @@ namespace plato_backend.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Ingredients = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Steps = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsPublished = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },

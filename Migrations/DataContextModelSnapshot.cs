@@ -56,6 +56,9 @@ namespace plato_backend.Migrations
                     b.Property<string>("Steps")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Tags")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 

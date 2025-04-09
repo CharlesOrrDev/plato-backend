@@ -11,7 +11,7 @@ using plato_backend.Context;
 namespace plato_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250409185316_init")]
+    [Migration("20250409222334_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -57,6 +57,9 @@ namespace plato_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Steps")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tags")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")

@@ -38,6 +38,7 @@ namespace plato_backend.Services
             blogToEdit.Description = blog.Description;
             blogToEdit.Ingredients = blog.Ingredients;
             blogToEdit.Steps = blog.Steps;
+            blogToEdit.Tags = blog.Tags;
             blogToEdit.IsPublished = blog.IsPublished;
             blogToEdit.IsDeleted = blog.IsDeleted;
 
@@ -59,6 +60,11 @@ namespace plato_backend.Services
         public async Task<List<BlogModel>> GetBlogsByDateAsync(string date)
         {
             return await _dataContext.Blog.Where(blog => blog.Date == date).ToListAsync();
+        }
+
+        public async Task<List<BlogModel>> GetBlogsByTagsAsync(string[] tags)
+        {
+            return await _dataContext.Blog.Where(blog => blog.Tags == tags).ToListAsync();
         }
     }
 }
