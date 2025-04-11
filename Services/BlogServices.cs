@@ -31,6 +31,7 @@ namespace plato_backend.Services
 
             if (blogToEdit == null) return false;
             
+            blogToEdit.UserId = blog.UserId;
             blogToEdit.PublisherName = blog.PublisherName;
             blogToEdit.Date = blog.Date;
             blogToEdit.Image = blog.Image;
