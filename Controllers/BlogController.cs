@@ -65,6 +65,16 @@ namespace plato_backend.Controllers
             return BadRequest(new {Message = "No Blogs"});
         }
 
+        [HttpGet("GetBlogById/{id}")]
+        public async Task<IActionResult> GetBlogById(int id)
+        {
+            var blog = await _blogServices.GetBlogByIdAsync(id);
+
+            if (blog != null) return Ok(blog);
+
+            return BadRequest(new {Message = "No Blogs"});
+        }
+
         [HttpGet("GetBlogsByDate/{date}")]
         public async Task<IActionResult> GetBlogsByDate(string date)
         {

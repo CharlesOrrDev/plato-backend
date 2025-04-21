@@ -48,7 +48,7 @@ namespace plato_backend.Services
             return await _dataContext.SaveChangesAsync() != 0;
         }
 
-        private async Task<BlogModel> GetBlogByIdAsync(int id)
+        public async Task<BlogModel> GetBlogByIdAsync(int id)
         {
             return (await _dataContext.Blog.FindAsync(id))!;
         }
