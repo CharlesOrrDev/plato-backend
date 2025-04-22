@@ -82,7 +82,7 @@ namespace plato_backend.Controllers
 
             if (blogs != null) return Ok(blogs);
 
-            return BadRequest(new {Message = "No Blogs by that Date"});
+            return BadRequest(new {Message = "No Blogs with that Date"});
         }
 
         [HttpGet("GetBlogsByTags/{tags}")]
