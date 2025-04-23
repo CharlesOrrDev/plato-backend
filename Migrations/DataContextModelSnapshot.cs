@@ -50,6 +50,9 @@ namespace plato_backend.Migrations
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
 
+                    b.Property<int>("NumberOfLikes")
+                        .HasColumnType("int");
+
                     b.Property<int>("NumberOfRatings")
                         .HasColumnType("int");
 

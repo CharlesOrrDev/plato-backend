@@ -104,5 +104,15 @@ namespace plato_backend.Controllers
 
             return BadRequest(new {Message = "Blog Rating Failed To Update"});
         }
+
+        [HttpPut("Likes")]
+        public async Task<IActionResult> Likes(int blogId)
+        {
+            var success = await _blogServices.Likes(blogId);
+
+            if (success) return Ok(new {Success = true});
+
+            return BadRequest(new {Message = "Blog Likes Failed To Update"});
+        }
     }
 }

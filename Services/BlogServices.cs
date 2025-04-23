@@ -87,5 +87,18 @@ namespace plato_backend.Services
 
             return await _dataContext.SaveChangesAsync() != 0;
         }
+
+        public async Task<bool> Likes(int blogId)
+        {
+            var blogToLike = await GetBlogByIdAsync(blogId);
+
+            if (blogToLike == null) return false;
+
+            blogToLike.NumberOfLikes += 1;
+
+            _dataContext.Blog.Update(blogToLike);
+
+            return await _dataContext.SaveChangesAsync() != 0;
+        }
     }
 }
