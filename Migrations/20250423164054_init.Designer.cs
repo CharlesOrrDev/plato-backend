@@ -11,7 +11,7 @@ using plato_backend.Context;
 namespace plato_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250422191122_init")]
+    [Migration("20250423164054_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -50,8 +50,14 @@ namespace plato_backend.Migrations
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
 
+                    b.Property<int>("NumberOfRatings")
+                        .HasColumnType("int");
+
                     b.Property<string>("PublisherName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.Property<string>("RecipeName")
                         .HasColumnType("nvarchar(max)");

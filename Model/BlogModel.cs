@@ -22,6 +22,10 @@ namespace plato_backend.Model
 
         public string[]? Tags { get; set; }
 
+        public int Rating { get; set; }
+
+        public int NumberOfRatings { get; set; }
+
         public bool IsPublished { get; set; }
 
         public bool IsDeleted { get; set; }

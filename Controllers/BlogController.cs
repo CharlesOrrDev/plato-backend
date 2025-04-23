@@ -94,5 +94,15 @@ namespace plato_backend.Controllers
 
             return BadRequest(new {Message = "No Blogs with those Tags"});
         }
+
+        [HttpPut("Rating")]
+        public async Task<IActionResult> Rating(int blogId, int Rating)
+        {
+            var success = await _blogServices.Rating(blogId, Rating);
+
+            if (success) return Ok(new {Success = true});
+
+            return BadRequest(new {Message = "Blog Rating Failed To Update"});
+        }
     }
 }

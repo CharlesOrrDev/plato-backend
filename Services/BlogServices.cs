@@ -40,6 +40,8 @@ namespace plato_backend.Services
             blogToEdit.Ingredients = blog.Ingredients;
             blogToEdit.Steps = blog.Steps;
             blogToEdit.Tags = blog.Tags;
+            blogToEdit.Rating = blog.Rating;
+            blogToEdit.NumberOfRatings = blog.NumberOfRatings;
             blogToEdit.IsPublished = blog.IsPublished;
             blogToEdit.IsDeleted = blog.IsDeleted;
 
@@ -66,6 +68,22 @@ namespace plato_backend.Services
         public async Task<List<BlogModel>> GetBlogsByTagsAsync(string[] tags)
         {
             return await _dataContext.Blog.Where(blog => blog.Tags == tags).ToListAsync();
+        }
+
+        public async Task<bool> Rating(int blogId, int Rating)
+        {
+            var blogToRate = await GetBlogByIdAsync(blogId);
+
+            var rating = Rating;
+
+            if (blogToRate == null) return false;
+
+            blogToRate.Rating += rating;
+            blogToRate.NumberOfRatings += 1;
+
+            _dataContext.Blog.Update(blogToRate);
+
+            return await _dataContext.SaveChangesAsync() != 0;
         }
     }
 }
