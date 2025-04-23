@@ -11,7 +11,7 @@ using plato_backend.Context;
 namespace plato_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250423171257_init")]
+    [Migration("20250423184036_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -158,6 +158,9 @@ namespace plato_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("DateCreated")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DateOfBirth")
                         .HasColumnType("nvarchar(max)");
 
@@ -167,6 +170,9 @@ namespace plato_backend.Migrations
                     b.Property<string>("Hash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("LikedBlogs")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -174,6 +180,9 @@ namespace plato_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfilePicture")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RatedBlogs")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Salt")

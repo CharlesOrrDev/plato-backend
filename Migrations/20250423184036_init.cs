@@ -88,7 +88,10 @@ namespace plato_backend.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LikedBlogs = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RatedBlogs = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

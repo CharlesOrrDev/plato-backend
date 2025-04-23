@@ -95,20 +95,20 @@ namespace plato_backend.Controllers
             return BadRequest(new {Message = "No Blogs with those Tags"});
         }
 
-        [HttpPut("Rating")]
-        public async Task<IActionResult> Rating(int blogId, int Rating)
+        [HttpPut("Rating/{blogId}/{userId}/{Rating}")]
+        public async Task<IActionResult> Rating(int blogId, int userId, int Rating)
         {
-            var success = await _blogServices.Rating(blogId, Rating);
+            var success = await _blogServices.Rating(blogId, userId, Rating);
 
             if (success) return Ok(new {Success = true});
 
             return BadRequest(new {Message = "Blog Rating Failed To Update"});
         }
 
-        [HttpPut("Likes")]
-        public async Task<IActionResult> Likes(int blogId)
+        [HttpPut("Likes/{blogId}/{userId}")]
+        public async Task<IActionResult> Likes(int blogId, int userId)
         {
-            var success = await _blogServices.Likes(blogId);
+            var success = await _blogServices.Likes(blogId, userId);
 
             if (success) return Ok(new {Success = true});
 

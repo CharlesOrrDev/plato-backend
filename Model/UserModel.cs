@@ -19,5 +19,11 @@ namespace plato_backend.Model
         public string? DateOfBirth { get; set; }
 
         public string? ProfilePicture { get; set; }
+
+        public List<int>? LikedBlogs { get; set; }
+        
+        public List<int>? RatedBlogs { get; set; }
+
+        public string? DateCreated { get; set; }
     }
 }

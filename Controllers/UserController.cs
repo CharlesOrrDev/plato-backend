@@ -35,6 +35,16 @@ namespace plato_backend.Controllers
             return Unauthorized(new {Message = "Login Failed Wrong Username/Email or Password"});
         }
 
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _userServices.GetUsersAsync();
+
+            if (users != null) return Ok(users);
+
+            return BadRequest(new {Message = "No Users"});
+        }
+
         [HttpGet("GetUserByUsername/{username}")]
         public async Task<IActionResult> GetUserByUsername(string username)
         {
@@ -59,6 +69,16 @@ namespace plato_backend.Controllers
         public async Task<IActionResult> GetUserByUsernameAndEmail(string username, string email)
         {
             var user = await _userServices.GetUserByUsernameAndEmailAsync(username, email);
+
+            if (user != null) return Ok(user);
+
+            return BadRequest(new {Message = "No User Found"});
+        }
+
+        [HttpGet("GetUserByUserId/{userId}")]
+        public async Task<IActionResult> GetUserByUserId(int userId)
+        {
+            var user = await _userServices.GetUserByUserId(userId);
 
             if (user != null) return Ok(user);
 

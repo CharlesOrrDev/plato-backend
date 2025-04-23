@@ -37,9 +37,17 @@ namespace plato_backend.Services
             userToAdd.PhoneNumber = newUser.PhoneNumber;
             userToAdd.DateOfBirth = newUser.DateOfBirth;
             userToAdd.ProfilePicture = "";
+            userToAdd.LikedBlogs = [];
+            userToAdd.RatedBlogs = [];
+            userToAdd.DateCreated = DateTime.Now.ToString();
 
             await _dataContext.User.AddAsync(userToAdd);
             return await _dataContext.SaveChangesAsync() != 0;
+        }
+
+        public async Task<List<UserModel>> GetUsersAsync()
+        {
+            return await _dataContext.User.ToListAsync();
         }
 
         private async Task<bool> DoesUserExistUsername(string username)
@@ -132,6 +140,9 @@ namespace plato_backend.Services
             user.PhoneNumber = currentUser.PhoneNumber;
             user.DateOfBirth = currentUser.DateOfBirth;
             user.ProfilePicture = currentUser.ProfilePicture;
+            user.LikedBlogs = currentUser.LikedBlogs;
+            user.RatedBlogs = currentUser.RatedBlogs;
+            user.DateCreated = currentUser.DateCreated;
 
             return user;
         }
@@ -149,6 +160,9 @@ namespace plato_backend.Services
             user.PhoneNumber = currentUser.PhoneNumber;
             user.DateOfBirth = currentUser.DateOfBirth;
             user.ProfilePicture = currentUser.ProfilePicture;
+            user.LikedBlogs = currentUser.LikedBlogs;
+            user.RatedBlogs = currentUser.RatedBlogs;
+            user.DateCreated = currentUser.DateCreated;
 
             return user;
         }
@@ -166,8 +180,16 @@ namespace plato_backend.Services
             user.PhoneNumber = currentUser.PhoneNumber;
             user.DateOfBirth = currentUser.DateOfBirth;
             user.ProfilePicture = currentUser.ProfilePicture;
+            user.LikedBlogs = currentUser.LikedBlogs;
+            user.RatedBlogs = currentUser.RatedBlogs;
+            user.DateCreated = currentUser.DateCreated;
 
             return user;
+        }
+
+        public async Task<UserModel> GetUserByUserId(int userId)
+        {
+            return (await _dataContext.User.FindAsync(userId))!;
         }
     }
 }
