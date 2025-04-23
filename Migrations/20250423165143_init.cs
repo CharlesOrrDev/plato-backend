@@ -27,6 +27,7 @@ namespace plato_backend.Migrations
                     Tags = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rating = table.Column<int>(type: "int", nullable: false),
                     NumberOfRatings = table.Column<int>(type: "int", nullable: false),
+                    AverageRating = table.Column<int>(type: "int", nullable: false),
                     IsPublished = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },

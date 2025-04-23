@@ -42,6 +42,7 @@ namespace plato_backend.Services
             blogToEdit.Tags = blog.Tags;
             blogToEdit.Rating = blog.Rating;
             blogToEdit.NumberOfRatings = blog.NumberOfRatings;
+            blogToEdit.AverageRating = blog.AverageRating;
             blogToEdit.IsPublished = blog.IsPublished;
             blogToEdit.IsDeleted = blog.IsDeleted;
 
@@ -80,6 +81,7 @@ namespace plato_backend.Services
 
             blogToRate.Rating += rating;
             blogToRate.NumberOfRatings += 1;
+            blogToRate.AverageRating = blogToRate.Rating / blogToRate.NumberOfRatings;
 
             _dataContext.Blog.Update(blogToRate);
 

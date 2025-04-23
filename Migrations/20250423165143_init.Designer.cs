@@ -11,7 +11,7 @@ using plato_backend.Context;
 namespace plato_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250423164054_init")]
+    [Migration("20250423165143_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -31,6 +31,9 @@ namespace plato_backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AverageRating")
+                        .HasColumnType("int");
 
                     b.Property<string>("Date")
                         .HasColumnType("nvarchar(max)");

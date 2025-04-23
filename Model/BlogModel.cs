@@ -26,6 +26,8 @@ namespace plato_backend.Model
 
         public int NumberOfRatings { get; set; }
 
+        public int AverageRating { get; set; }
+
         public bool IsPublished { get; set; }
 
         public bool IsDeleted { get; set; }

@@ -29,6 +29,9 @@ namespace plato_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AverageRating")
+                        .HasColumnType("int");
+
                     b.Property<string>("Date")
                         .HasColumnType("nvarchar(max)");
 
