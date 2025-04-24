@@ -210,27 +210,25 @@ namespace plato_backend.Services
 
             var requestedUser = await GetUserByUserId(requestedUserId);
 
-            if (!requestedUser.IncomingFriendRequest!.Contains(requestingUserId))
-            {
-                requestedUser.IncomingFriendRequest.Add(requestingUserId);
-                requestingUser.OutgoingFriendRequest!.Add(requestedUserId);
-            }else if (requestingUser.IncomingFriendRequest!.Contains(requestedUserId))
-            {
-                requestingUser.OutgoingFriendRequest!.Remove(requestedUserId);
-                requestedUser.IncomingFriendRequest.Remove(requestedUserId);
-                requestingUser.Friends!.Add(requestedUserId);
-                requestedUser.Friends!.Add(requestingUserId);
-            }else if (requestingUser.OutgoingFriendRequest!.Contains(requestedUserId))
-            {
-                requestedUser.IncomingFriendRequest!.Remove(requestedUserId);
-                requestingUser.OutgoingFriendRequest!.Remove(requestedUserId);
-            }else if (requestingUser.Friends!.Contains(requestedUserId))
+            if (requestingUser.Friends!.Contains(requestedUserId))
             {
                 requestingUser.Friends.Remove(requestedUserId);
                 requestedUser.Friends!.Remove(requestingUserId);
+            }else if (requestingUser.IncomingFriendRequest!.Contains(requestedUserId))
+            {
+                requestedUser.OutgoingFriendRequest!.Remove(requestingUserId);
+                requestingUser.IncomingFriendRequest!.Remove(requestedUserId);
+                requestingUser.Friends!.Add(requestedUserId);
+                requestedUser.Friends!.Add(requestingUserId);
+            }else if (!requestedUser.IncomingFriendRequest!.Contains(requestingUserId))
+            {
+                requestedUser.IncomingFriendRequest.Add(requestingUserId);
+                requestingUser.OutgoingFriendRequest!.Add(requestedUserId);
+            }else if (requestingUser.OutgoingFriendRequest!.Contains(requestedUserId))
+            {
+                requestedUser.IncomingFriendRequest!.Remove(requestingUserId);
+                requestingUser.OutgoingFriendRequest!.Remove(requestedUserId);
             }
-            Console.WriteLine("Requested User " + requestedUser);
-            Console.WriteLine("Requesting User: " + requestingUser);
 
             _dataContext.User.Update(requestingUser);
             _dataContext.User.Update(requestedUser);
