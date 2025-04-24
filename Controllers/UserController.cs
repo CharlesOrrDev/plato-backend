@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using plato_backend.Model;
 using plato_backend.Model.DTOS;
 using plato_backend.Services;
 
@@ -83,6 +84,26 @@ namespace plato_backend.Controllers
             if (user != null) return Ok(user);
 
             return BadRequest(new {Message = "No User Found"});
+        }
+
+        [HttpPut("RequestFriend/{requestingUserId}/{requestedUserId}")]
+        public async Task<IActionResult> RequestFriend(int requestingUserId, int requestedUserId)
+        {
+            var success = await _userServices.RequestFriend(requestingUserId, requestedUserId);
+
+            if (success) return Ok(new {Success = true});
+
+            return BadRequest(new {Message = "User Friends Failed To Update"});
+        }
+
+        [HttpPut("EditUser")]
+        public async Task<IActionResult> EditUser([FromBody]UserModel user)
+        {
+            var success = await _userServices.EditUsersAsync(user);
+
+            if (success) return Ok(new {Success = true});
+
+            return BadRequest(new {Message = "User Failed To Update"});
         }
     }
 }

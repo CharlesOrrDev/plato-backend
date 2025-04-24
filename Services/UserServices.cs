@@ -40,6 +40,9 @@ namespace plato_backend.Services
             userToAdd.LikedBlogs = [];
             userToAdd.RatedBlogs = [];
             userToAdd.DateCreated = DateTime.Now.ToString();
+            userToAdd.IncomingFriendRequest = [];
+            userToAdd.OutgoingFriendRequest = [];
+            userToAdd.Friends = [];
 
             await _dataContext.User.AddAsync(userToAdd);
             return await _dataContext.SaveChangesAsync() != 0;
@@ -143,6 +146,9 @@ namespace plato_backend.Services
             user.LikedBlogs = currentUser.LikedBlogs;
             user.RatedBlogs = currentUser.RatedBlogs;
             user.DateCreated = currentUser.DateCreated;
+            user.IncomingFriendRequest = currentUser.IncomingFriendRequest;
+            user.OutgoingFriendRequest = currentUser.OutgoingFriendRequest;
+            user.Friends = currentUser.Friends;
 
             return user;
         }
@@ -163,6 +169,9 @@ namespace plato_backend.Services
             user.LikedBlogs = currentUser.LikedBlogs;
             user.RatedBlogs = currentUser.RatedBlogs;
             user.DateCreated = currentUser.DateCreated;
+            user.IncomingFriendRequest = currentUser.IncomingFriendRequest;
+            user.OutgoingFriendRequest = currentUser.OutgoingFriendRequest;
+            user.Friends = currentUser.Friends;
 
             return user;
         }
@@ -183,6 +192,9 @@ namespace plato_backend.Services
             user.LikedBlogs = currentUser.LikedBlogs;
             user.RatedBlogs = currentUser.RatedBlogs;
             user.DateCreated = currentUser.DateCreated;
+            user.IncomingFriendRequest = currentUser.IncomingFriendRequest;
+            user.OutgoingFriendRequest = currentUser.OutgoingFriendRequest;
+            user.Friends = currentUser.Friends;
 
             return user;
         }
@@ -190,6 +202,67 @@ namespace plato_backend.Services
         public async Task<UserModel> GetUserByUserId(int userId)
         {
             return (await _dataContext.User.FindAsync(userId))!;
+        }
+
+        public async Task<bool> RequestFriend(int requestingUserId, int requestedUserId)
+        {
+            var requestingUser = await GetUserByUserId(requestingUserId);
+
+            var requestedUser = await GetUserByUserId(requestedUserId);
+
+            if (!requestedUser.IncomingFriendRequest!.Contains(requestingUserId))
+            {
+                requestedUser.IncomingFriendRequest.Add(requestingUserId);
+                requestingUser.OutgoingFriendRequest!.Add(requestedUserId);
+            }else if (requestingUser.IncomingFriendRequest!.Contains(requestedUserId))
+            {
+                requestingUser.OutgoingFriendRequest!.Remove(requestedUserId);
+                requestedUser.IncomingFriendRequest.Remove(requestedUserId);
+                requestingUser.Friends!.Add(requestedUserId);
+                requestedUser.Friends!.Add(requestingUserId);
+            }else if (requestingUser.OutgoingFriendRequest!.Contains(requestedUserId))
+            {
+                requestedUser.IncomingFriendRequest!.Remove(requestedUserId);
+                requestingUser.OutgoingFriendRequest!.Remove(requestedUserId);
+            }else if (requestingUser.Friends!.Contains(requestedUserId))
+            {
+                requestingUser.Friends.Remove(requestedUserId);
+                requestedUser.Friends!.Remove(requestingUserId);
+            }
+            Console.WriteLine("Requested User " + requestedUser);
+            Console.WriteLine("Requesting User: " + requestingUser);
+
+            _dataContext.User.Update(requestingUser);
+            _dataContext.User.Update(requestedUser);
+
+            return await _dataContext.SaveChangesAsync() != 0;
+        }
+
+        public async Task<bool> EditUsersAsync(UserModel user)
+        {
+            var userToEdit = await GetUserByUserId(user.Id);
+
+            if (userToEdit == null) return false;
+            
+            userToEdit.Id = user.Id;
+            userToEdit.Email = user.Email;
+            userToEdit.Username = user.Username;
+            userToEdit.Salt = user.Salt;
+            userToEdit.Hash = user.Hash;
+            userToEdit.Name = user.Name;
+            userToEdit.PhoneNumber = user.PhoneNumber;
+            userToEdit.DateOfBirth = user.DateOfBirth;
+            userToEdit.ProfilePicture = user.ProfilePicture;
+            userToEdit.LikedBlogs = user.LikedBlogs;
+            userToEdit.RatedBlogs = user.RatedBlogs;
+            userToEdit.DateCreated = user.DateCreated;
+            userToEdit.IncomingFriendRequest = user.IncomingFriendRequest;
+            userToEdit.OutgoingFriendRequest = user.OutgoingFriendRequest;
+            userToEdit.Friends = user.Friends;
+
+            _dataContext.User.Update(userToEdit);
+            
+            return await _dataContext.SaveChangesAsync() != 0;
         }
     }
 }

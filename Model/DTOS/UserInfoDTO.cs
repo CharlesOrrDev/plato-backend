@@ -21,5 +21,11 @@ namespace plato_backend.Model.DTOS
         public List<int>? RatedBlogs { get; set; }
 
         public string? DateCreated { get; set; }
+
+        public List<int>? IncomingFriendRequest { get; set; }
+
+        public List<int>? OutgoingFriendRequest { get; set; }
+
+        public List<int>? Friends { get; set; }
     }
 }
