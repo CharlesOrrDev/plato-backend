@@ -4,6 +4,7 @@ using plato_backend.Services;
 
 namespace plato_backend.Controllers
 {
+    [ApiController]
     [Route("[controller]")]
     public class ReplysController : ControllerBase
     {

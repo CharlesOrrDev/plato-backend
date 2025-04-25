@@ -8,6 +8,6 @@ namespace plato_backend.Model
 
         public int UserTwoId { get; set; }
 
-        public List<MessageModel>? Message { get; set; }
+        public List<MessageModel>? Messages { get; set; }
     }
 }

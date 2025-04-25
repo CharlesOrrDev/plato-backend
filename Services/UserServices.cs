@@ -204,34 +204,34 @@ namespace plato_backend.Services
             return (await _dataContext.User.FindAsync(userId))!;
         }
 
-        public async Task<bool> RequestFriend(int requestingUserId, int requestedUserId)
+        public async Task<bool> RequestFriend(int senderUserId, int receiverUserId)
         {
-            var requestingUser = await GetUserByUserId(requestingUserId);
+            var senderUser = await GetUserByUserId(senderUserId);
 
-            var requestedUser = await GetUserByUserId(requestedUserId);
+            var receiverUser = await GetUserByUserId(receiverUserId);
 
-            if (requestingUser.Friends!.Contains(requestedUserId))
+            if (senderUser.Friends!.Contains(receiverUserId))
             {
-                requestingUser.Friends.Remove(requestedUserId);
-                requestedUser.Friends!.Remove(requestingUserId);
-            }else if (requestingUser.IncomingFriendRequest!.Contains(requestedUserId))
+                senderUser.Friends.Remove(receiverUserId);
+                receiverUser.Friends!.Remove(senderUserId);
+            }else if (senderUser.IncomingFriendRequest!.Contains(receiverUserId))
             {
-                requestedUser.OutgoingFriendRequest!.Remove(requestingUserId);
-                requestingUser.IncomingFriendRequest.Remove(requestedUserId);
-                requestingUser.Friends.Add(requestedUserId);
-                requestedUser.Friends!.Add(requestingUserId);
-            }else if (!requestedUser.IncomingFriendRequest!.Contains(requestingUserId))
+                receiverUser.OutgoingFriendRequest!.Remove(senderUserId);
+                senderUser.IncomingFriendRequest.Remove(receiverUserId);
+                senderUser.Friends.Add(receiverUserId);
+                receiverUser.Friends!.Add(senderUserId);
+            }else if (!receiverUser.IncomingFriendRequest!.Contains(senderUserId))
             {
-                requestedUser.IncomingFriendRequest.Add(requestingUserId);
-                requestingUser.OutgoingFriendRequest!.Add(requestedUserId);
-            }else if (requestingUser.OutgoingFriendRequest!.Contains(requestedUserId))
+                receiverUser.IncomingFriendRequest.Add(senderUserId);
+                senderUser.OutgoingFriendRequest!.Add(receiverUserId);
+            }else if (senderUser.OutgoingFriendRequest!.Contains(receiverUserId))
             {
-                requestedUser.IncomingFriendRequest.Remove(requestingUserId);
-                requestingUser.OutgoingFriendRequest.Remove(requestedUserId);
+                receiverUser.IncomingFriendRequest.Remove(senderUserId);
+                senderUser.OutgoingFriendRequest.Remove(receiverUserId);
             }
 
-            _dataContext.User.Update(requestingUser);
-            _dataContext.User.Update(requestedUser);
+            _dataContext.User.Update(senderUser);
+            _dataContext.User.Update(receiverUser);
 
             return await _dataContext.SaveChangesAsync() != 0;
         }

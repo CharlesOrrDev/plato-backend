@@ -13,6 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<BlogServices>();
+builder.Services.AddScoped<CommentsServices>();
+builder.Services.AddScoped<ReplysServices>();
+builder.Services.AddScoped<ConversationServices>();
 
 var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
