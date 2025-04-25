@@ -57,5 +57,6 @@
     ~ EditConversations √
     ~ EditMessage √
 
+  17. do testing to make sure everything is functioning as it was planned to √
+
   # To-Do #
-  17. do testing to make sure everything is functioning as it was planned to
