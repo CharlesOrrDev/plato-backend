@@ -29,6 +29,7 @@ namespace plato_backend.Migrations
                     NumberOfRatings = table.Column<int>(type: "int", nullable: false),
                     AverageRating = table.Column<int>(type: "int", nullable: false),
                     NumberOfLikes = table.Column<int>(type: "int", nullable: false),
+                    PostType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsPublished = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -54,6 +55,20 @@ namespace plato_backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comment", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Conversation",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserOneId = table.Column<int>(type: "int", nullable: false),
+                    UserTwoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Conversation", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,12 +106,41 @@ namespace plato_backend.Migrations
                     ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LikedBlogs = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RatedBlogs = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateCreated = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    DateCreated = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IncomingFriendRequest = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OutgoingFriendRequest = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Friends = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Message",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConversationId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConversationModelId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Message", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Message_Conversation_ConversationModelId",
+                        column: x => x.ConversationModelId,
+                        principalTable: "Conversation",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Message_ConversationModelId",
+                table: "Message",
+                column: "ConversationModelId");
         }
 
         /// <inheritdoc />
@@ -109,10 +153,16 @@ namespace plato_backend.Migrations
                 name: "Comment");
 
             migrationBuilder.DropTable(
+                name: "Message");
+
+            migrationBuilder.DropTable(
                 name: "Reply");
 
             migrationBuilder.DropTable(
                 name: "User");
+
+            migrationBuilder.DropTable(
+                name: "Conversation");
         }
     }
 }
