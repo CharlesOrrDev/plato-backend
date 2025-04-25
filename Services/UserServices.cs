@@ -217,8 +217,8 @@ namespace plato_backend.Services
             }else if (requestingUser.IncomingFriendRequest!.Contains(requestedUserId))
             {
                 requestedUser.OutgoingFriendRequest!.Remove(requestingUserId);
-                requestingUser.IncomingFriendRequest!.Remove(requestedUserId);
-                requestingUser.Friends!.Add(requestedUserId);
+                requestingUser.IncomingFriendRequest.Remove(requestedUserId);
+                requestingUser.Friends.Add(requestedUserId);
                 requestedUser.Friends!.Add(requestingUserId);
             }else if (!requestedUser.IncomingFriendRequest!.Contains(requestingUserId))
             {
@@ -226,8 +226,8 @@ namespace plato_backend.Services
                 requestingUser.OutgoingFriendRequest!.Add(requestedUserId);
             }else if (requestingUser.OutgoingFriendRequest!.Contains(requestedUserId))
             {
-                requestedUser.IncomingFriendRequest!.Remove(requestingUserId);
-                requestingUser.OutgoingFriendRequest!.Remove(requestedUserId);
+                requestedUser.IncomingFriendRequest.Remove(requestingUserId);
+                requestingUser.OutgoingFriendRequest.Remove(requestedUserId);
             }
 
             _dataContext.User.Update(requestingUser);

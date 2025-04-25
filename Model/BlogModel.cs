@@ -30,6 +30,8 @@ namespace plato_backend.Model
 
         public int NumberOfLikes { get; set; }
 
+        public string? PostType { get; set; }
+
         public bool IsPublished { get; set; }
 
         public bool IsDeleted { get; set; }
