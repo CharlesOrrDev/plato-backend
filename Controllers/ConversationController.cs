@@ -86,9 +86,9 @@ namespace plato_backend.Controllers
         }
 
         [HttpGet("GetMessageByUserId/{userId}")]
-        public async Task<IActionResult> GetessageByUserId(int userTwoId)
+        public async Task<IActionResult> GetMessageByUserId(int userId)
         {
-            var conversation = await _conversationServices.GetConversationsByUserOneIdAsync(userTwoId);
+            var conversation = await _conversationServices.GetMessagesByUserIdAsync(userId);
 
             if (conversation != null) return Ok(conversation);
 

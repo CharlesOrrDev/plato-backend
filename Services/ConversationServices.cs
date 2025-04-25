@@ -20,14 +20,29 @@ namespace plato_backend.Services
 
         public async Task<bool> AddConversationAsync(ConversationModel conversation)
         {
-            await _dataContext.Conversation.AddAsync(conversation);
+            ConversationModel conversationToAdd = new();
+
+            conversationToAdd.Id = conversation.Id;
+            conversationToAdd.UserOneId = conversation.UserOneId;
+            conversationToAdd.UserTwoId = conversation.UserTwoId;
+            conversationToAdd.CreationDate = DateTime.Now.ToString();
+
+            await _dataContext.Conversation.AddAsync(conversationToAdd);
 
             return await _dataContext.SaveChangesAsync() != 0;
         }
 
         public async Task<bool> AddMessageAsync(MessageModel message)
         {
-            await _dataContext.Message.AddAsync(message);
+            MessageModel messageToAdd = new();
+
+            messageToAdd.Id = message.Id;
+            messageToAdd.ConversationId = message.ConversationId;
+            messageToAdd.UserId = message.UserId;
+            messageToAdd.Message = message.Message;
+            messageToAdd.DateSent = DateTime.Now.ToString();
+
+            await _dataContext.Message.AddAsync(messageToAdd);
 
             return await _dataContext.SaveChangesAsync() != 0;
         }
@@ -70,7 +85,6 @@ namespace plato_backend.Services
             
             conversationToEdit.UserOneId = conversation.UserOneId;
             conversationToEdit.UserTwoId = conversation.UserTwoId;
-            conversationToEdit.Messages = conversation.Messages;
 
             _dataContext.Conversation.Update(conversationToEdit);
             

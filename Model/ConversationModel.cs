@@ -8,6 +8,6 @@ namespace plato_backend.Model
 
         public int UserTwoId { get; set; }
 
-        public List<MessageModel>? Messages { get; set; }
+        public string? CreationDate { get; set; }
     }
 }

@@ -9,5 +9,7 @@ namespace plato_backend.Model
         public int UserId { get; set; }
 
         public string? Message { get; set; }
+
+        public string? DateSent { get; set; }
     }
 }
