@@ -41,9 +41,6 @@ namespace plato_backend.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Ingredients")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -66,9 +63,6 @@ namespace plato_backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("RecipeName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Steps")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tags")
@@ -138,6 +132,28 @@ namespace plato_backend.Migrations
                     b.ToTable("Conversation");
                 });
 
+            modelBuilder.Entity("plato_backend.Model.IngredientsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ingredients")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ingredients");
+                });
+
             modelBuilder.Entity("plato_backend.Model.MessageModel", b =>
                 {
                     b.Property<int>("Id")
@@ -195,6 +211,28 @@ namespace plato_backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reply");
+                });
+
+            modelBuilder.Entity("plato_backend.Model.StepsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Steps")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Steps");
                 });
 
             modelBuilder.Entity("plato_backend.Model.UserModel", b =>

@@ -37,8 +37,6 @@ namespace plato_backend.Services
             blogToEdit.Image = blog.Image;
             blogToEdit.RecipeName = blog.RecipeName;
             blogToEdit.Description = blog.Description;
-            blogToEdit.Ingredients = blog.Ingredients;
-            blogToEdit.Steps = blog.Steps;
             blogToEdit.Tags = blog.Tags;
             blogToEdit.Rating = blog.Rating;
             blogToEdit.NumberOfRatings = blog.NumberOfRatings;

@@ -16,5 +16,7 @@ namespace plato_backend.Context
         public DbSet<ReplysModel> Reply { get; set; }
         public DbSet<ConversationModel> Conversation { get; set; }
         public DbSet<MessageModel> Message { get; set; }
+        public DbSet<IngredientsModel> Ingredients { get; set; }
+        public DbSet<StepsModel> Steps { get; set; }
     }
 }

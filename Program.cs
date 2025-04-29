@@ -16,6 +16,8 @@ builder.Services.AddScoped<BlogServices>();
 builder.Services.AddScoped<CommentsServices>();
 builder.Services.AddScoped<ReplysServices>();
 builder.Services.AddScoped<ConversationServices>();
+builder.Services.AddScoped<IngredientsServices>();
+builder.Services.AddScoped<StepsServices>();
 
 var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
