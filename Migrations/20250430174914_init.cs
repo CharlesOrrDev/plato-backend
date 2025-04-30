@@ -155,7 +155,9 @@ namespace plato_backend.Migrations
                     IncomingFriendRequest = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OutgoingFriendRequest = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Friends = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PremiumMember = table.Column<bool>(type: "bit", nullable: false)
+                    PremiumMember = table.Column<bool>(type: "bit", nullable: false),
+                    Interests = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SavedRecipes = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

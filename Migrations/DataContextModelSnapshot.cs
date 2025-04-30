@@ -261,6 +261,9 @@ namespace plato_backend.Migrations
                     b.Property<string>("IncomingFriendRequest")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Interests")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LikedBlogs")
                         .HasColumnType("nvarchar(max)");
 
@@ -283,6 +286,9 @@ namespace plato_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Salt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SavedRecipes")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
