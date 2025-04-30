@@ -59,5 +59,10 @@
 
   17. do testing to make sure everything is functioning as it was planned to √
 
+  18. made changes to blog model to match additions requested by team lead √
+
+  19. added premium boolean to user model √
+
+  20. added interests and saved recipes to user model √
+  
   # To-Do #
-  add to program and other areas with new models and such
