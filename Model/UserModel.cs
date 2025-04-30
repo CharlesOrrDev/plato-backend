@@ -31,5 +31,7 @@ namespace plato_backend.Model
         public List<int>? OutgoingFriendRequest { get; set; }
 
         public List<int>? Friends { get; set; }
+
+        public bool PremiumMember { get; set; }
     }
 }

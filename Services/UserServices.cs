@@ -43,6 +43,7 @@ namespace plato_backend.Services
             userToAdd.IncomingFriendRequest = [];
             userToAdd.OutgoingFriendRequest = [];
             userToAdd.Friends = [];
+            userToAdd.PremiumMember = false;
 
             await _dataContext.User.AddAsync(userToAdd);
             return await _dataContext.SaveChangesAsync() != 0;
@@ -149,6 +150,7 @@ namespace plato_backend.Services
             user.IncomingFriendRequest = currentUser.IncomingFriendRequest;
             user.OutgoingFriendRequest = currentUser.OutgoingFriendRequest;
             user.Friends = currentUser.Friends;
+            user.PremiumMember = currentUser.PremiumMember;
 
             return user;
         }
@@ -172,6 +174,7 @@ namespace plato_backend.Services
             user.IncomingFriendRequest = currentUser.IncomingFriendRequest;
             user.OutgoingFriendRequest = currentUser.OutgoingFriendRequest;
             user.Friends = currentUser.Friends;
+            user.PremiumMember = currentUser.PremiumMember;
 
             return user;
         }
@@ -195,6 +198,7 @@ namespace plato_backend.Services
             user.IncomingFriendRequest = currentUser.IncomingFriendRequest;
             user.OutgoingFriendRequest = currentUser.OutgoingFriendRequest;
             user.Friends = currentUser.Friends;
+            user.PremiumMember = currentUser.PremiumMember;
 
             return user;
         }
@@ -257,6 +261,7 @@ namespace plato_backend.Services
             userToEdit.IncomingFriendRequest = user.IncomingFriendRequest;
             userToEdit.OutgoingFriendRequest = user.OutgoingFriendRequest;
             userToEdit.Friends = user.Friends;
+            userToEdit.PremiumMember = user.PremiumMember;
 
             _dataContext.User.Update(userToEdit);
             

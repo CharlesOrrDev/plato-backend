@@ -11,7 +11,7 @@ using plato_backend.Context;
 namespace plato_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250429183252_init")]
+    [Migration("20250430172754_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -275,6 +275,9 @@ namespace plato_backend.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PremiumMember")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("nvarchar(max)");

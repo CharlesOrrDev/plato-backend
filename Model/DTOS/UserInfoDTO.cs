@@ -27,5 +27,7 @@ namespace plato_backend.Model.DTOS
         public List<int>? OutgoingFriendRequest { get; set; }
 
         public List<int>? Friends { get; set; }
+
+        public bool PremiumMember { get; set; }
     }
 }
