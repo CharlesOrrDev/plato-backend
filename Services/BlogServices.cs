@@ -65,9 +65,11 @@ namespace plato_backend.Services
             return await _dataContext.Blog.Where(blog => blog.Date == date).ToListAsync();
         }
 
-        public async Task<List<BlogModel>> GetBlogsByTagsAsync(string[] tags)
+        public async Task<List<BlogModel>> GetBlogsByTagsAsync(string tags)
         {
-            return await _dataContext.Blog.Where(blog => blog.Tags == tags).ToListAsync();
+            string replacedTags = tags.Replace(" ", ",");
+
+            return await _dataContext.Blog.Where(blog => blog.Tags!.Contains(replacedTags)).ToListAsync();
         }
 
         public async Task<bool> Rating(int blogId, int userId, int Rating)

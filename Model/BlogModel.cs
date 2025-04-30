@@ -16,7 +16,7 @@ namespace plato_backend.Model
 
         public string? Description { get; set; }
 
-        public string[]? Tags { get; set; }
+        public List<string>? Tags { get; set; }
 
         public int Rating { get; set; }
 

@@ -86,7 +86,7 @@ namespace plato_backend.Controllers
         }
 
         [HttpGet("GetBlogsByTags/{tags}")]
-        public async Task<IActionResult> GetBlogsByTags(string[] tags)
+        public async Task<IActionResult> GetBlogsByTags(string tags)
         {
             var blogs = await _blogServices.GetBlogsByTagsAsync(tags);
 
