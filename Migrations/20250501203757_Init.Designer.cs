@@ -11,7 +11,7 @@ using plato_backend.Context;
 namespace plato_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250501165938_Init")]
+    [Migration("20250501203757_Init")]
     partial class Init
     {
         /// <inheritdoc />
