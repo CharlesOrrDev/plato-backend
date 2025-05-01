@@ -67,9 +67,9 @@ namespace plato_backend.Services
 
         public async Task<List<BlogModel>> GetBlogsByTagsAsync(string tags)
         {
-            string replacedTags = tags.Replace(" ", ",");
+            string[] tagsArray = tags.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries).Select(tag => tag.Trim()).Where(tag => !string.IsNullOrEmpty(tag)).ToArray();
 
-            return await _dataContext.Blog.Where(blog => blog.Tags!.Contains(replacedTags)).ToListAsync();
+            return await _dataContext.Blog.Where(blog => blog.Tags != null && tagsArray.Any(tag => blog.Tags.Contains(tag))).ToListAsync();
         }
 
         public async Task<bool> Rating(int blogId, int userId, int Rating)
