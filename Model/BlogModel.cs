@@ -16,6 +16,10 @@ namespace plato_backend.Model
 
         public string? Description { get; set; }
 
+        public virtual List<IngredientsModel>? Ingredients { get; set; }
+
+        public virtual List<StepsModel>? Steps { get; set; }
+
         public List<string>? Tags { get; set; }
 
         public int Rating { get; set; }

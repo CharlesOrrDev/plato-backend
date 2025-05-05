@@ -15,7 +15,7 @@ namespace plato_backend.Services
 
         public async Task<List<BlogModel>> GetBlogsAsync()
         {
-            return await _dataContext.Blog.ToListAsync();
+            return await _dataContext.Blog.Include(blog => blog.Ingredients).Include(blog => blog.Steps).ToListAsync();
         }
 
         public async Task<bool> AddBlogAsync(BlogModel blog)
@@ -23,6 +23,16 @@ namespace plato_backend.Services
             await _dataContext.Blog.AddAsync(blog);
 
             return await _dataContext.SaveChangesAsync() != 0;
+        }
+
+        public async Task<List<IngredientsModel>> GetIngredientsByBlogIdAsync(int blogId)
+        {
+            return await _dataContext.Ingredients.Where(ingredients => ingredients.BlogId == blogId).ToListAsync();
+        }
+
+        public async Task<List<StepsModel>> GetStepsByBlogIdAsync(int blogId)
+        {
+            return await _dataContext.Steps.Where(steps => steps.BlogId == blogId).ToListAsync();
         }
 
         public async Task<bool> EditBlogsAsync(BlogModel blog)
@@ -37,6 +47,8 @@ namespace plato_backend.Services
             blogToEdit.Image = blog.Image;
             blogToEdit.RecipeName = blog.RecipeName;
             blogToEdit.Description = blog.Description;
+            blogToEdit.Ingredients = blog.Ingredients;
+            blogToEdit.Steps = blog.Steps;
             blogToEdit.Tags = blog.Tags;
             blogToEdit.Rating = blog.Rating;
             blogToEdit.NumberOfRatings = blog.NumberOfRatings;
