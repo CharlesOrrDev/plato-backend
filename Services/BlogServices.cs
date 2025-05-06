@@ -64,24 +64,24 @@ namespace plato_backend.Services
 
         public async Task<BlogModel> GetBlogByIdAsync(int id)
         {
-            return (await _dataContext.Blog.FindAsync(id))!;
+            return (await _dataContext.Blog.Include(blog => blog.Ingredients).Include(blog => blog.Steps).FirstOrDefaultAsync(blog => blog.Id == id))!;
         }
 
         public async Task<List<BlogModel>> GetBlogsByUserIdAsync(int id)
         {
-            return await _dataContext.Blog.Where(blog => blog.UserId == id).ToListAsync();
+            return await _dataContext.Blog.Include(blog => blog.Ingredients).Include(blog => blog.Steps).Where(blog => blog.UserId == id).ToListAsync();
         }
 
         public async Task<List<BlogModel>> GetBlogsByDateAsync(string date)
         {
-            return await _dataContext.Blog.Where(blog => blog.Date == date).ToListAsync();
+            return await _dataContext.Blog.Include(blog => blog.Ingredients).Include(blog => blog.Steps).Where(blog => blog.Date == date).ToListAsync();
         }
 
         public async Task<List<BlogModel>> GetBlogsByTagsAsync(string tags)
         {
             string[] tagsArray = tags.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries).Select(tag => tag.Trim()).Where(tag => !string.IsNullOrEmpty(tag)).ToArray();
 
-            return await _dataContext.Blog.Where(blog => blog.Tags != null && tagsArray.Any(tag => blog.Tags.Contains(tag))).ToListAsync();
+            return await _dataContext.Blog.Include(blog => blog.Ingredients).Include(blog => blog.Steps).Where(blog => blog.Tags != null && tagsArray.Any(tag => blog.Tags.Contains(tag))).ToListAsync();
         }
 
         public async Task<bool> Rating(int blogId, int userId, int Rating)
