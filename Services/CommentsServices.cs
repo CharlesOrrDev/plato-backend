@@ -48,9 +48,9 @@ namespace plato_backend.Services
             return (await _dataContext.Comment.FindAsync(id))!;
         }
 
-        public async Task<List<CommentsModel>> GetCommentsByUserIdAsync(int id)
+        public async Task<List<CommentsModel>> GetCommentsByUserIdAsync(int userId)
         {
-            return await _dataContext.Comment.Where(comment => comment.UserId == id).ToListAsync();
+            return await _dataContext.Comment.Where(comment => comment.UserId == userId).ToListAsync();
         }
 
         public async Task<List<CommentsModel>> GetCommentsByDateAsync(string date)
@@ -58,9 +58,9 @@ namespace plato_backend.Services
             return await _dataContext.Comment.Where(comment => comment.Date == date).ToListAsync();
         }
 
-        public async Task<List<CommentsModel>> GetCommentsByBlogIdAsync(int id)
+        public async Task<List<CommentsModel>> GetCommentsByBlogIdAsync(int blogId)
         {
-            return await _dataContext.Comment.Where(comment => comment.BlogId == id).ToListAsync();
+            return await _dataContext.Comment.Where(comment => comment.BlogId == blogId).ToListAsync();
         }
     }
 }

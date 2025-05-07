@@ -67,9 +67,9 @@ namespace plato_backend.Services
             return (await _dataContext.Blog.Include(blog => blog.Ingredients).Include(blog => blog.Steps).FirstOrDefaultAsync(blog => blog.Id == id))!;
         }
 
-        public async Task<List<BlogModel>> GetBlogsByUserIdAsync(int id)
+        public async Task<List<BlogModel>> GetBlogsByUserIdAsync(int userId)
         {
-            return await _dataContext.Blog.Include(blog => blog.Ingredients).Include(blog => blog.Steps).Where(blog => blog.UserId == id).ToListAsync();
+            return await _dataContext.Blog.Include(blog => blog.Ingredients).Include(blog => blog.Steps).Where(blog => blog.UserId == userId).ToListAsync();
         }
 
         public async Task<List<BlogModel>> GetBlogsByDateAsync(string date)
