@@ -33,5 +33,9 @@ namespace plato_backend.Model.DTOS
         public List<string>? Interests { get; set; }
 
         public List<int>? SavedRecipes { get; set; }
+
+        public List<int>? Following { get; set; }
+
+        public List<int>? Followers { get; set; }
     }
 }

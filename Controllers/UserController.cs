@@ -105,5 +105,15 @@ namespace plato_backend.Controllers
 
             return BadRequest(new {Message = "User Failed To Update"});
         }
+
+        [HttpPut("FollowUser/{userWhoIsFollowingId}/{userBeingFollowedId}")]
+        public async Task<IActionResult> FollowUser(int userWhoIsFollowingId, int userBeingFollowedId)
+        {
+            var success = await _userServices.FollowUser(userWhoIsFollowingId, userBeingFollowedId);
+
+            if (success) return Ok(new {Success = true});
+
+            return BadRequest(new {Message = "User Follow Failed To Update"});
+        }
     }
 }

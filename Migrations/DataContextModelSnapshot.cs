@@ -263,6 +263,12 @@ namespace plato_backend.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Followers")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Following")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Friends")
                         .HasColumnType("nvarchar(max)");
 

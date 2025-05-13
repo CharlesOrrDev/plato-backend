@@ -46,6 +46,8 @@ namespace plato_backend.Services
             userToAdd.PremiumMember = false;
             userToAdd.Interests = [];
             userToAdd.SavedRecipes = [];
+            userToAdd.Following = [];
+            userToAdd.Followers = [];
 
             await _dataContext.User.AddAsync(userToAdd);
             return await _dataContext.SaveChangesAsync() != 0;
@@ -155,6 +157,8 @@ namespace plato_backend.Services
             user.PremiumMember = currentUser.PremiumMember;
             user.Interests = currentUser.Interests;
             user.SavedRecipes = currentUser.SavedRecipes;
+            user.Following = currentUser.Following;
+            user.Followers = currentUser.Followers;
 
             return user;
         }
@@ -181,6 +185,8 @@ namespace plato_backend.Services
             user.PremiumMember = currentUser.PremiumMember;
             user.Interests = currentUser.Interests;
             user.SavedRecipes = currentUser.SavedRecipes;
+            user.Following = currentUser.Following;
+            user.Followers = currentUser.Followers;
 
             return user;
         }
@@ -207,6 +213,8 @@ namespace plato_backend.Services
             user.PremiumMember = currentUser.PremiumMember;
             user.Interests = currentUser.Interests;
             user.SavedRecipes = currentUser.SavedRecipes;
+            user.Following = currentUser.Following;
+            user.Followers = currentUser.Followers;
 
             return user;
         }
@@ -272,9 +280,33 @@ namespace plato_backend.Services
             userToEdit.PremiumMember = user.PremiumMember;
             userToEdit.Interests = user.Interests;
             userToEdit.SavedRecipes = user.SavedRecipes;
+            userToEdit.Following = user.Following;
+            userToEdit.Followers = user.Followers;
 
             _dataContext.User.Update(userToEdit);
             
+            return await _dataContext.SaveChangesAsync() != 0;
+        }
+
+        public async Task<bool> FollowUser(int userWhoIsFollowingId, int userBeingFollowedId)
+        {
+            var userWhoIsFollowingUser = await GetUserByUserId(userWhoIsFollowingId);
+
+            var userBeingFollowedUser = await GetUserByUserId(userBeingFollowedId);
+
+            if ( userWhoIsFollowingUser.Following!.Contains(userBeingFollowedId) )
+            {
+                userWhoIsFollowingUser.Following.Remove(userBeingFollowedId);
+                userBeingFollowedUser.Followers!.Remove(userWhoIsFollowingId);
+            }else
+            {
+                userWhoIsFollowingUser.Following.Add(userBeingFollowedId);
+                userBeingFollowedUser.Followers!.Add(userWhoIsFollowingId);
+            }
+
+            _dataContext.User.Update(userWhoIsFollowingUser);
+            _dataContext.User.Update(userBeingFollowedUser);
+
             return await _dataContext.SaveChangesAsync() != 0;
         }
     }

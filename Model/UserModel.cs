@@ -37,5 +37,9 @@ namespace plato_backend.Model
         public List<string>? Interests { get; set; }
 
         public List<int>? SavedRecipes { get; set; }
+
+        public List<int>? Following { get; set; }
+
+        public List<int>? Followers { get; set; }
     }
 }

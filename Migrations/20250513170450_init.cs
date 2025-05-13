@@ -5,7 +5,7 @@
 namespace plato_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -127,7 +127,9 @@ namespace plato_backend.Migrations
                     Friends = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PremiumMember = table.Column<bool>(type: "bit", nullable: false),
                     Interests = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SavedRecipes = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SavedRecipes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Following = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Followers = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

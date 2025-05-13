@@ -12,8 +12,8 @@ using plato_backend.Context;
 namespace plato_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250508220136_Init")]
-    partial class Init
+    [Migration("20250513170450_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -264,6 +264,12 @@ namespace plato_backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Followers")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Following")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Friends")
