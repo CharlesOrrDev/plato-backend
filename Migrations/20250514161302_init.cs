@@ -28,6 +28,9 @@ namespace plato_backend.Migrations
                     AverageRating = table.Column<int>(type: "int", nullable: false),
                     NumberOfLikes = table.Column<int>(type: "int", nullable: false),
                     PostType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TotalTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Servings = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Source = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsPublished = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },

@@ -32,6 +32,12 @@ namespace plato_backend.Model
 
         public string? PostType { get; set; }
 
+        public string? TotalTime { get; set; }
+
+        public string? Servings { get; set; }
+
+        public string? Source { get; set; }
+
         public bool IsPublished { get; set; }
 
         public bool IsDeleted { get; set; }

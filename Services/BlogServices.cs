@@ -54,6 +54,9 @@ namespace plato_backend.Services
             blogToEdit.NumberOfRatings = blog.NumberOfRatings;
             blogToEdit.AverageRating = blog.AverageRating;
             blogToEdit.PostType = blog.PostType;
+            blogToEdit.TotalTime = blog.TotalTime;
+            blogToEdit.Servings = blog.Servings;
+            blogToEdit.Source = blog.Source;
             blogToEdit.IsPublished = blog.IsPublished;
             blogToEdit.IsDeleted = blog.IsDeleted;
 

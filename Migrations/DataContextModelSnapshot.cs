@@ -66,7 +66,16 @@ namespace plato_backend.Migrations
                     b.Property<string>("RecipeName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Servings")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Source")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Tags")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TotalTime")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
