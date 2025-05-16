@@ -12,7 +12,7 @@ using plato_backend.Context;
 namespace plato_backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250514161302_init")]
+    [Migration("20250516162709_init")]
     partial class init
     {
         /// <inheritdoc />
