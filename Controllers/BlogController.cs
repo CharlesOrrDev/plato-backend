@@ -15,6 +15,8 @@ namespace plato_backend.Controllers
             _blogServices = blogServices;
         }
 
+
+
         [HttpGet("GetAllBlogs")]
         public async Task<IActionResult> GetAllBlogs()
         {
@@ -26,23 +28,71 @@ namespace plato_backend.Controllers
         }
 
         [HttpPost("AddBlog")]
-        public async Task<IActionResult> AddBlog([FromBody]BlogModel blog)
+        public async Task<IActionResult> AddBlog([FromForm] BlogCreateRequest request)
         {
-            var success = await _blogServices.AddBlogAsync(blog);
+            var blog = new BlogModel
+            {
+                UserId = request.UserId,
+                PublisherName = request.PublisherName,
+                Date = request.Date,
+                RecipeName = request.RecipeName,
+                Description = request.Description,
+                Tags = request.Tags,
+                PostType = request.PostType,
+                TotalTime = request.TotalTime,
+                Servings = request.Servings,
+                Source = request.Source,
+                IsPublished = request.IsPublished,
+                IsDeleted = false
+            };
 
-            if (success) return Ok(new {Success = true});
+            var success = await _blogServices.AddBlogAsync(blog, request.ImageFile!);
 
-            return BadRequest(new {Message = "Blog Was not Added"});
+            if (success) return Ok(new { Success = true, ImageUrl = blog.Image });
+            return BadRequest(new { Message = "Blog was not added" });
         }
 
-        [HttpPut("EditBlog")]
-        public async Task<IActionResult> EditBlog([FromBody]BlogModel blog)
+        [HttpPut("EditBlog/{id}")]
+        public async Task<IActionResult> EditBlog(int id, [FromForm] BlogUpdateRequest request)
         {
-            var success = await _blogServices.EditBlogsAsync(blog);
+            var blog = new BlogModel
+            {
+                Id = id,
+                UserId = request.UserId,
+                PublisherName = request.PublisherName,
+                Date = request.Date,
+                RecipeName = request.RecipeName,
+                Description = request.Description,
+                Tags = request.Tags,
+                PostType = request.PostType,
+                TotalTime = request.TotalTime,
+                Servings = request.Servings,
+                Source = request.Source,
+                IsPublished = request.IsPublished
+            };
 
-            if (success) return Ok(new {Success = true});
+            var success = await _blogServices.EditBlogsAsync(blog, request.NewImageFile!);
 
-            return BadRequest(new {Message = "Blog Failed To Update"});
+            if (success) return Ok(new { Success = true });
+            return BadRequest(new { Message = "Blog failed to update" });
+        }
+
+        [HttpPost("UploadImage")]
+        public async Task<IActionResult> UploadImage([FromForm] IFormFile imageFile)
+        {
+            if (imageFile == null || imageFile.Length == 0)
+            {
+                return BadRequest(new { Message = "No image file provided" });
+            }
+
+            try
+            {
+                var imageUrl = await _blogServices.UploadBlogImageAsync(imageFile);
+                return Ok(new { Success = true, ImageUrl = imageUrl });
+            }catch (Exception ex)
+            {
+                return BadRequest(new { Message = $"Image upload failed: {ex.Message}" });
+            }
         }
 
         [HttpDelete("DeleteBlog")]

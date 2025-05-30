@@ -7,10 +7,24 @@ namespace plato_backend.Services
     public class BlogServices
     {
         private readonly DataContext _dataContext;
+        private readonly BlobStorageService _blobStorageService;
 
-        public BlogServices(DataContext dataContext)
+        public BlogServices(DataContext dataContext, BlobStorageService blobStorageService)
         {
             _dataContext = dataContext;
+            _blobStorageService = blobStorageService;
+        }
+
+        public async Task<string> UploadBlogImageAsync(IFormFile imageFile)
+        {
+            if (imageFile == null || imageFile.Length == 0)
+            {
+                throw new ArgumentException("No image file provided");
+            }
+
+            var fileName = $"blog_{Guid.NewGuid()}_{imageFile.FileName}";
+
+            return await _blobStorageService.UploadImageAsync(imageFile, fileName);
         }
 
         public async Task<List<BlogModel>> GetBlogsAsync()
@@ -18,10 +32,14 @@ namespace plato_backend.Services
             return await _dataContext.Blog.Include(blog => blog.Ingredients).Include(blog => blog.Steps).ToListAsync();
         }
 
-        public async Task<bool> AddBlogAsync(BlogModel blog)
+        public async Task<bool> AddBlogAsync(BlogModel blog, IFormFile imageFile = null!)
         {
-            await _dataContext.Blog.AddAsync(blog);
+            if (imageFile != null)
+            {
+                blog.Image = await UploadBlogImageAsync(imageFile);
+            }
 
+            await _dataContext.Blog.AddAsync(blog);
             return await _dataContext.SaveChangesAsync() != 0;
         }
 
@@ -35,11 +53,20 @@ namespace plato_backend.Services
             return await _dataContext.Steps.Where(steps => steps.BlogId == blogId).ToListAsync();
         }
 
-        public async Task<bool> EditBlogsAsync(BlogModel blog)
+        public async Task<bool> EditBlogsAsync(BlogModel blog, IFormFile newImageFile = null!)
         {
             var blogToEdit = await GetBlogByIdAsync(blog.Id);
-
             if (blogToEdit == null) return false;
+
+            if (newImageFile != null)
+            {
+                if (!string.IsNullOrEmpty(blogToEdit.Image))
+                {
+                    await _blobStorageService.DeleteImageAsync(blogToEdit.Image);
+                }
+
+                blog.Image = await UploadBlogImageAsync(newImageFile);
+            }
             
             blogToEdit.UserId = blog.UserId;
             blogToEdit.PublisherName = blog.PublisherName;
@@ -61,8 +88,28 @@ namespace plato_backend.Services
             blogToEdit.IsDeleted = blog.IsDeleted;
 
             _dataContext.Blog.Update(blogToEdit);
-            
             return await _dataContext.SaveChangesAsync() != 0;
+        }
+
+        public async Task<bool> DeleteBlogAsync(int blogId)
+        {
+            var blog = await GetBlogByIdAsync(blogId);
+            if (blog == null) return false;
+
+            if (!string.IsNullOrEmpty(blog.Image))
+            {
+                await _blobStorageService.DeleteImageAsync(blog.Image);
+            }
+
+            blog.IsDeleted = true;
+            _dataContext.Blog.Update(blog);
+
+            return await _dataContext.SaveChangesAsync() != 0;
+        }
+
+        public async Task<List<BlogModel>> getBlogsAsync()
+        {
+            return await _dataContext.Blog.Include(blog => blog.Ingredients).Include(blog => blog.Steps).ToListAsync();
         }
 
         public async Task<BlogModel> GetBlogByIdAsync(int id)

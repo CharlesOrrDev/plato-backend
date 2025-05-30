@@ -54,6 +54,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+var GetBlobConnectionString = builder.Configuration.GetConnectionString("BlobStorage");
+builder.Services.AddScoped(provider => new BlobStorageService(GetBlobConnectionString!));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
